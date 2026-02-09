@@ -18,6 +18,7 @@ public class Main {
                 sc.nextLine();
                 System.out.print("작가 : ");
                 sc.nextLine();
+                System.out.println("1번 명언이 등록되었습니다.");
             } else if (cmd.equals("종료")) {
                 break;
             }
