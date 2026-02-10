@@ -6,6 +6,7 @@ public class App {
 
     Scanner sc = new Scanner(System.in);
     int lastid = 0;
+
     int lastWiseSayingIndex = -1;
     WiseSaying[] wiseSayings = new WiseSaying[10];
 
@@ -27,28 +28,41 @@ public class App {
         }
     }
 
-    public void actionList() {
+    private void actionList() {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
-        for (int i = lastWiseSayingIndex; i >= 0; i--) {
-            WiseSaying foundedWiseSaying = wiseSayings[i];
-            System.out.println("%d / %s / %s".formatted(foundedWiseSaying.id, foundedWiseSaying.author, foundedWiseSaying.content));
+
+        WiseSaying[] foundedwiseSayings = findList();
+
+        for (WiseSaying wiseSaying : foundedwiseSayings) {
+            System.out.printf("%d / %s / %s\n", wiseSaying.id, wiseSaying.author, wiseSaying.content);
         }
     }
 
-    public void actionWrite() {
+    private WiseSaying[] findList() {
+
+        WiseSaying[] foundedWiseSayings = new WiseSaying[lastWiseSayingIndex + 1];
+        int foundedWiseSayingIndex = -1;
+
+        for (int i = lastWiseSayingIndex; i >= 0; i--) {
+            WiseSaying foundedWiseSaying = wiseSayings[i];
+            foundedWiseSayings[++foundedWiseSayingIndex] = foundedWiseSaying;
+        }
+        return foundedWiseSayings;
+    }
+
+    private void actionWrite() {
         System.out.print("명언 : ");
         String content = sc.nextLine();
         System.out.print("작가 : ");
         String author = sc.nextLine();
 
-        WiseSaying wiseSaying = write(content, author);
-
+        write(content, author);
         System.out.println("%d번 명언이 등록되었습니다.".formatted(lastid));
 
     }
 
-    public WiseSaying write(String content, String author) {
+    private void write(String content, String author) {
         WiseSaying wiseSaying = new WiseSaying();
 
         wiseSaying.id = ++lastid;
@@ -56,8 +70,6 @@ public class App {
         wiseSaying.author = author;
 
         wiseSayings[++lastWiseSayingIndex] = wiseSaying;
-
-        return wiseSaying;
 
     }
 }
