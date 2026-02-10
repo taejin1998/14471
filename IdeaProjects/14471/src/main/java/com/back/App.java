@@ -5,10 +5,10 @@ import java.util.Scanner;
 public class App {
 
     Scanner sc = new Scanner(System.in);
-    int lastid = 0;
+    int lastNo = 0;
 
-    int lastWiseSayingIndex = -1;
     WiseSaying[] wiseSayings = new WiseSaying[10];
+    int lasId = -1;
 
     public void run() {
 
@@ -22,10 +22,31 @@ public class App {
                 actionWrite();
             } else if (cmd.equals("목록")) {
                 actionList();
+            } else if (cmd.equals("삭제?id=1")) {
+                actionDelete();
             } else if (cmd.equals("종료")) {
                 break;
             }
         }
+    }
+
+    private void actionDelete() {
+        delete();
+        System.out.println("1번 명언이 삭제되었습니다.");
+    }
+
+    private void delete() {
+        int deleteTargetIndex = -1;
+
+        for (int i = 0; i < lasId; i++) {
+            if (wiseSayings[i].id == 1) {
+                deleteTargetIndex = i;
+            }
+        }
+        for (int i = deleteTargetIndex; i < lasId; i++) {
+            wiseSayings[i] = wiseSayings[i + 1];
+        }
+        lasId--;
     }
 
     private void actionList() {
@@ -41,10 +62,10 @@ public class App {
 
     private WiseSaying[] findList() {
 
-        WiseSaying[] foundedWiseSayings = new WiseSaying[lastWiseSayingIndex + 1];
+        WiseSaying[] foundedWiseSayings = new WiseSaying[lasId + 1];
         int foundedWiseSayingIndex = -1;
 
-        for (int i = lastWiseSayingIndex; i >= 0; i--) {
+        for (int i = lasId; i >= 0; i--) {
             WiseSaying foundedWiseSaying = wiseSayings[i];
             foundedWiseSayings[++foundedWiseSayingIndex] = foundedWiseSaying;
         }
@@ -58,18 +79,18 @@ public class App {
         String author = sc.nextLine();
 
         write(content, author);
-        System.out.println("%d번 명언이 등록되었습니다.".formatted(lastid));
+        System.out.println("%d번 명언이 등록되었습니다.".formatted(lastNo));
 
     }
 
     private void write(String content, String author) {
         WiseSaying wiseSaying = new WiseSaying();
 
-        wiseSaying.id = ++lastid;
+        wiseSaying.id = ++lastNo;
         wiseSaying.content = content;
         wiseSaying.author = author;
 
-        wiseSayings[++lastWiseSayingIndex] = wiseSaying;
+        wiseSayings[++lasId] = wiseSaying;
 
     }
 }
