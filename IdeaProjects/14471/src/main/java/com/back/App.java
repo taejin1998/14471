@@ -18,7 +18,7 @@ public class App {
             String cmd = sc.nextLine();
 
             if (cmd.equals("등록")) {
-                actionwrite();
+                actionWrite();
             } else if (cmd.equals("목록")) {
                 actionList();
             } else if (cmd.equals("종료")) {
@@ -36,12 +36,19 @@ public class App {
         }
     }
 
-    public void actionwrite() {
+    public void actionWrite() {
         System.out.print("명언 : ");
         String content = sc.nextLine();
         System.out.print("작가 : ");
         String author = sc.nextLine();
 
+        WiseSaying wiseSaying = write(content, author);
+
+        System.out.println("%d번 명언이 등록되었습니다.".formatted(lastid));
+
+    }
+
+    public WiseSaying write(String content, String author) {
         WiseSaying wiseSaying = new WiseSaying();
 
         wiseSaying.id = ++lastid;
@@ -49,7 +56,8 @@ public class App {
         wiseSaying.author = author;
 
         wiseSayings[++lastWiseSayingIndex] = wiseSaying;
-        System.out.println("%d번 명언이 등록되었습니다.".formatted(lastid));
+
+        return wiseSaying;
 
     }
 }
