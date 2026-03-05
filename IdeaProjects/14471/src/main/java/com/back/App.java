@@ -104,15 +104,7 @@ public class App {
     }
 
     public boolean delete(int id) {
-
-        int deleteTargetIndex = findIndexById(id);
-
-        if (deleteTargetIndex == -1) {
-            return false;
-        }
-
-        wiseSayings.remove(deleteTargetIndex);
-        return true;
+        return wiseSayings.removeIf(w -> w.getId() == id);
     }
 
     public void actionList() {
