@@ -7,9 +7,9 @@ import java.util.stream.IntStream;
 
 public class App {
 
-    Scanner sc = new Scanner(System.in);
-    int lastId = 0;
-    List<WiseSaying> wiseSayings = new ArrayList<>();
+    private Scanner sc = new Scanner(System.in);
+    private int lastId = 0;
+    private List<WiseSaying> wiseSayings = new ArrayList<>();
 
     public void run() {
 
@@ -17,21 +17,24 @@ public class App {
 
         while (true) {
             System.out.print("명령) ");
-            String command = sc.nextLine();
+            String cmd = sc.nextLine();
 
-            if (command.equals("등록")) {
+            Rq rq = new Rq(cmd);
+            String action = rq.getAction();
+
+            if (action.equals("등록")) {
                 actionWrite();
 
-            } else if (command.equals("목록")) {
+            } else if (action.equals("목록")) {
                 actionList();
 
-            } else if (command.startsWith("삭제")) {
-                actionDelete(command);
+            } else if (action.startsWith("삭제")) {
+                actionDelete(cmd);
 
-            } else if (command.startsWith("수정")) {
-                actionModify(command);
+            } else if (action.startsWith("수정")) {
+                actionModify(cmd);
 
-            } else if (command.equals("종료")) {
+            } else if (action.equals("종료")) {
                 break;
             }
         }
