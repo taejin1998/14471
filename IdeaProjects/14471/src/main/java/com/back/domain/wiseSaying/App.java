@@ -1,4 +1,6 @@
-package com.back;
+package com.back.domain.wiseSaying;
+
+import com.back.domain.wiseSaying.controller.SystemController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +11,8 @@ public class App {
 
     private Scanner sc = new Scanner(System.in);
     private int lastId = 0;
-
     private List<WiseSaying> wiseSayings = new ArrayList<>();
+    private SystemController systemController = new SystemController();
 
     public void run() {
 
@@ -24,6 +26,7 @@ public class App {
             String action = rq.getAction();
 
             if (action.equals("종료")) {
+                systemController.exit();
                 break;
             } else if (action.equals("등록")) {
                 actionWrite();
