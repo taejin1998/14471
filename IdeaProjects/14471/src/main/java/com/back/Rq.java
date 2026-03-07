@@ -1,7 +1,9 @@
 package com.back;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Rq {
 
@@ -23,6 +25,13 @@ public class Rq {
 
             paramMap.put(key, value);
         }
+        paramMap = Arrays.stream(paramsBits)
+                .map(param -> param.split("="))
+                .filter(paramBits -> paramBits.length == 2 && paramBits[0] != null && paramBits[1] != null)
+                .collect(Collectors.toMap(
+                        bits -> bits[0],
+                        bits -> bits[1]
+                ));
     }
 
     public String getAction() {
@@ -31,7 +40,7 @@ public class Rq {
 
     public String getParam(String key, String defaultValue) {
 
-        if(paramMap.containsKey(key)) {
+        if (paramMap.containsKey(key)) {
             return paramMap.get(key);
         }
         return defaultValue;
